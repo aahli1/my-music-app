@@ -1,21 +1,24 @@
 import {
-    Menubar,
-    MenubarCheckboxItem,
-    MenubarContent,
-    MenubarItem,
-    MenubarMenu,
-    MenubarRadioGroup,
-    MenubarRadioItem,
-    MenubarSeparator,
-    MenubarShortcut,
-    MenubarSub,
-    MenubarSubContent,
-    MenubarSubTrigger,
-    MenubarTrigger,
-  } from "@/components/ui/menubar"
-  
-  export function MenubarDemo() {
-    return (
+  Menubar,
+  MenubarCheckboxItem,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
+import { Button } from "@/components/ui/button"; // Import your Button component
+import { Plus } from "lucide-react"; // Assuming you're using Lucide icons
+
+export function MenubarDemo() {
+  return (
+    <div className="flex items-center justify-between p-4">
       <Menubar>
         <MenubarMenu>
           <MenubarTrigger>Music</MenubarTrigger>
@@ -103,6 +106,10 @@ import {
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
-    )
-  }
-  
+      <Button className="flex items-center space-x-2">
+        <Plus className="w-4 h-4" />
+        <span>Add Music</span>
+      </Button>
+    </div>
+  );
+}
