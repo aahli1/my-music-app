@@ -8,7 +8,7 @@ const libraries = ["places"];
 
 export default function GoogleMapsPage() {
   const mapRef = useRef<google.maps.Map | null>(null);
-  const [center, setCenter] = useState({ lat: 24.873202, lng: 67.020590 }); // Default center location 
+  const [center, setCenter] = useState({ lat: 24.873202, lng: 67.020590 }); // Default center location
   const [zoom, setZoom] = useState(12);
   const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null);
 
@@ -35,36 +35,53 @@ export default function GoogleMapsPage() {
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyAD6iSlcIV2pRo528kwU-fKMG6OjwuV9Uc" libraries={libraries}>
-      <div style={{ height: "100vh", width: "100%" }}>
-        <GoogleMap
-          mapContainerStyle={{ height: "100%", width: "100%" }}
-          center={center}
-          zoom={zoom}
-          onLoad={handleLoad}
+      <div style={{ display: "flex", height: "80vh", width: "100%" }}>
+        {/* Map Container */}
+        <div style={{ height: "100%", width: "70%" }}>
+          <GoogleMap
+            mapContainerStyle={{ height: "100%", width: "100%" }}
+            center={center}
+            zoom={zoom}
+            onLoad={handleLoad}
+          >
+            <Autocomplete onLoad={onLoadAutocomplete} onPlaceChanged={onPlaceChanged}>
+              <input
+                type="text"
+                placeholder="Search a location"
+                style={{
+                  boxSizing: `border-box`,
+                  border: `1px solid transparent`,
+                  width: `240px`,
+                  height: `32px`,
+                  padding: `0 12px`,
+                  borderRadius: `3px`,
+                  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                  fontSize: `14px`,
+                  outline: `none`,
+                  textOverflow: `ellipses`,
+                  position: "absolute",
+                  left: "50%",
+                  marginLeft: "-120px",
+                  top: "10px",
+                }}
+              />
+            </Autocomplete>
+          </GoogleMap>
+        </div>
+
+        {/* Coordinates Display */}
+        <div
+          style={{
+            width: "30%",
+            padding: "20px",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            backgroundColor: "#fff",
+          }}
         >
-          <Autocomplete onLoad={onLoadAutocomplete} onPlaceChanged={onPlaceChanged}>
-            <input
-              type="text"
-              placeholder="Search a location"
-              style={{
-                boxSizing: `border-box`,
-                border: `1px solid transparent`,
-                width: `240px`,
-                height: `32px`,
-                padding: `0 12px`,
-                borderRadius: `3px`,
-                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                fontSize: `14px`,
-                outline: `none`,
-                textOverflow: `ellipses`,
-                position: "absolute",
-                left: "50%",
-                marginLeft: "-120px",
-                top: "10px",
-              }}
-            />
-          </Autocomplete>
-        </GoogleMap>
+          <h3>Coordinates</h3>
+          <p>Latitude: {center.lat.toFixed(4)}</p>
+          <p>Longitude: {center.lng.toFixed(4)}</p>
+        </div>
       </div>
     </LoadScript>
   );
